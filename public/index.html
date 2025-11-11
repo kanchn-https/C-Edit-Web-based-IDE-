@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>C-Edit - Smart C Code Editor</title>
+  
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="./token-colors.css" />
+  <style>
+    /* Basic monospace font and matching metrics for both layers */
+    #editor, #syntax {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      white-space: pre;
+      line-height: 1.5; /* match Tailwind leading-6 */
+      tab-size: 4;
+      -moz-tab-size: 4;
+      font-variant-ligatures: none;
+    }
+    #editor {
+      outline: none;
+      color: transparent; 
+      -webkit-text-fill-color: transparent;
+      caret-color: #e5e7eb;
+      position: relative;
+      z-index: 1;
+      background: transparent;
+    }
+    #syntax { 
+      z-index: 0;
+      color: #e5e7eb; /* default text color */
+      background: transparent;
+      margin: 0;
+      padding: 0.75rem; /* match editor padding */
+      pointer-events: none;
+    }
+    
+    /* Ensure syntax spans are visible */
+    #syntax span {
+      color: inherit;
+    }
+    /* Scrollbars consistent look */
+    .scroll-area { scrollbar-width: thin; }
+    .scroll-area::-webkit-scrollbar { width: 8px; height: 8px; }
+    .scroll-area::-webkit-scrollbar-thumb { background: rgba(100,116,139,.6); border-radius: 6px; }
+  </style>
+</head>
+<body class="min-h-screen bg-slate-900 text-slate-100">
+  <div class="mx-auto max-w-7xl p-4 flex flex-col gap-4">
+    <header class="flex items-center justify-between">
+      <h1 class="text-xl font-semibold tracking-tight">C-Edit - C Code Editor</h1>
+      <div class="text-xs text-slate-400">Kanchan Bhatt</div>
+    </header>
+
+    <div class="flex flex-wrap gap-2 items-center">
+      <div class="inline-flex rounded-md shadow-sm overflow-hidden border border-slate-700">
+        <button id="btn-new" class="px-3 py-1.5 bg-slate-800 hover:bg-slate-700 border-r border-slate-700">New</button>
+        <button id="btn-open" class="px-3 py-1.5 bg-slate-800 hover:bg-slate-700 border-r border-slate-700">Open</button>
+        <button id="btn-save" class="px-3 py-1.5 bg-slate-800 hover:bg-slate-700">Save</button>
+      </div>
+      <div class="inline-flex rounded-md shadow-sm overflow-hidden border border-slate-700">
+        <button id="btn-undo" class="px-3 py-1.5 bg-slate-800 hover:bg-slate-700 border-r border-slate-700">Undo</button>
+        <button id="btn-redo" class="px-3 py-1.5 bg-slate-800 hover:bg-slate-700">Redo</button>
+      </div>
+      <button id="btn-run" class="px-3 py-1.5 rounded-md bg-emerald-600 hover:bg-emerald-500 shadow">Run</button>
+    </div>
+
+    <main class="grid grid-cols-1 md:grid-cols-3 gap-4">
+      <section class="flex flex-col rounded-lg border border-slate-800 overflow-hidden md:col-span-2">
+        <div class="px-3 py-2 bg-slate-800/70 border-b border-slate-700 text-sm">Editor.c</div>
+        <div class="relative bg-slate-950">
+          <pre id="syntax" aria-hidden="true" class="absolute inset-0 p-3 text-sm pointer-events-none select-none overflow-hidden"></pre>
+          <div id="editor" class="scroll-area p-3 text-sm h-[60vh] md:h-[70vh] overflow-auto leading-6" contenteditable="plaintext-only" spellcheck="false"></div>
+        </div>
+      </section>
+
+      <section class="flex flex-col gap-4">
+        <div class="flex flex-col rounded-lg border border-slate-800 overflow-hidden flex-1">
+          <div class="px-3 py-2 bg-slate-800/70 border-b border-slate-700 text-sm">Input</div>
+          <textarea id="stdin" class="scroll-area p-3 text-sm h-[28vh] md:h-[35vh] overflow-auto bg-slate-950 text-slate-100 leading-6 resize-none border-0 outline-none font-mono" placeholder="Enter input here..." spellcheck="false"></textarea>
+        </div>
+
+        <div class="flex flex-col rounded-lg border border-slate-800 overflow-hidden flex-1">
+          <div class="px-3 py-2 bg-slate-800/70 border-b border-slate-700 text-sm">Output</div>
+          <pre id="output" class="scroll-area p-3 text-sm h-[28vh] md:h-[35vh] overflow-auto bg-slate-950 leading-6"></pre>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script src="../feature/color-code.js"></script>
+  <script src="../feature/file-autocomplete.js"></script>
+  <script src="./app.js"></script>
+</body>
+</html>
+
+

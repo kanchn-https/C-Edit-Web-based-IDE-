@@ -1,0 +1,28 @@
+/* Token color classes matching feature/color-code.js output */
+.tok-keyword { color: #60a5fa !important; /* blue-400 */ }
+.tok-type { color: #34d399 !important; /* emerald-400 */ }
+.tok-identifier { color: #e5e7eb !important; /* gray-200 */ }
+.tok-number { color: #fbbf24 !important; /* amber-400 */ }
+.tok-string { color: #f472b6 !important; /* pink-400 */ }
+.tok-char { color: #f472b6 !important; /* pink-400 */ }
+.tok-operator { color: #a78bfa !important; /* violet-400 */ }
+.tok-punct { color: #9ca3af !important; /* gray-400 */ }
+.tok-comment { color: #6b7280 !important; /* gray-500 */ font-style: italic; }
+.tok-preproc { color: #86efac !important; /* green-300 */ }
+.tok-space { color: #e5e7eb !important; /* gray-200 - make whitespace visible */ }
+.tok-unknown { color: #f87171 !important; /* red-400 */ }
+
+/* Ensure syntax layer is visible and spans inherit colors */
+#syntax {
+  color: #e5e7eb;
+}
+
+#syntax span {
+  display: inline;
+  color: inherit;
+}
+
+/* Editor theming helpers */
+.cm-line { white-space: pre; }
+
+
