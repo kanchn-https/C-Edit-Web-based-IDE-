@@ -220,6 +220,49 @@
     }
 
     async function pistonRunC(source, stdin = '') {
+      // Primary: Wandbox API
+      try {
+        const resp = await fetch('https://wandbox.org/api/compile.json', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            compiler: 'gcc-head',
+            code: source,
+            stdin: stdin || ''
+          })
+        });
+        if (resp.ok) {
+          const data = await resp.json();
+          const stdout = data.program_output || data.compiler_output || '';
+          const stderr = [data.compiler_error, data.program_error].filter(Boolean).join('\n');
+          return { stdout, stderr };
+        }
+      } catch (e) {
+        console.warn('Wandbox execution failed, trying Judge0...', e);
+      }
+
+      // Secondary: Judge0 API
+      try {
+        const resp = await fetch('https://ce.judge0.com/submissions?wait=true', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            source_code: source,
+            language_id: 50, // C (GCC 9.2.0)
+            stdin: stdin || ''
+          })
+        });
+        if (resp.ok) {
+          const data = await resp.json();
+          const stdout = data.stdout || '';
+          const stderr = [data.compile_output, data.stderr, data.message].filter(Boolean).join('\n');
+          return { stdout, stderr };
+        }
+      } catch (e) {
+        console.warn('Judge0 execution failed, trying Piston...', e);
+      }
+
+      // Tertiary: Piston API
       const resp = await fetch('https://emkc.org/api/v2/piston/execute', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -231,18 +274,14 @@
           stdin: stdin || ''
         })
       });
-      if (!resp.ok) throw new Error(`piston failed: ${resp.status}`);
+      if (!resp.ok) throw new Error(`Code execution API failed with HTTP ${resp.status}`);
       const data = await resp.json();
       
-      // Handle compile output and errors
       const compileOut = (data.compile && (data.compile.stdout || data.compile.output || '')) || '';
       const compileErr = (data.compile && (data.compile.stderr || '')) || '';
-      
-      // Handle run output and errors
       const runOut = (data.run && (data.run.stdout || data.run.output || '')) || '';
       const runErr = (data.run && (data.run.stderr || '')) || '';
       
-      // Combine outputs
       const stdout = [compileOut, runOut].filter(Boolean).join('\n');
       const stderr = [compileErr, runErr].filter(Boolean).join('\n');
       
