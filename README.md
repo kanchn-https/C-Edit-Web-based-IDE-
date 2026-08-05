@@ -330,23 +330,6 @@ C-Edit connects to remote execution clusters to compile standard C source code s
 
 ---
 
-## 🖼️ Screenshots
-
-> *Note: Replace these placeholders with actual screenshots from your deployment.*
-
-### 1. Main Editor Interface
-![Main Editor Landing Page](https://via.placeholder.com/800x450.png?text=C-Edit+Main+Editor+Interface)
-*Clean dark mode workspace with split editor pane, stdin input box, and output console.*
-
-### 2. Live Syntax Highlighting & Autocomplete
-![Syntax Highlighting & Autocomplete Dropdown](https://via.placeholder.com/800x450.png?text=C-Edit+Autocomplete+%26+Syntax+Highlighting)
-*Context-aware dropdown suggesting header files and C standard functions at caret position.*
-
-### 3. Program Execution & Output Console
-![Program Execution & Output](https://via.placeholder.com/800x450.png?text=C-Edit+Program+Execution+Output)
-*Output pane rendering successful execution output and interactive stdin processing.*
-
----
 
 ## 🧠 Technical Challenges Faced
 
@@ -405,11 +388,3 @@ Developing C-Edit provided key software engineering insights across several doma
 This project is licensed under the **MIT License**. Feel free to use, modify, and distribute this codebase for personal and commercial projects. See the [LICENSE](LICENSE) file for details.
 
 ---
-
-## ✉️ Contact & Author
-
-**Kanchan Bhatt**
-- **GitHub**: [@kanchn-https](https://github.com/kanchn-https)
-- **Repository Link**: [C-Edit Web-Based IDE](https://github.com/kanchn-https/C-Edit-Web-based-IDE-)
-- **Email**: [kanchanbhatt.dev@gmail.com](mailto:kanchanbhatt.dev@gmail.com)
-- **LinkedIn**: [linkedin.com/in/kanchanbhatt](https://linkedin.com/in/kanchanbhatt)
